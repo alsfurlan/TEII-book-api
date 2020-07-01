@@ -1,12 +1,15 @@
 package br.com.bookapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +26,10 @@ public class Autor implements Serializable {
     
     @Column(nullable = false, unique = true)
     private String nome;
+    
+    @ManyToMany(mappedBy = "autores")
+    @JsonIgnore
+    private List<Livro> livros = new ArrayList<>();
 
     public Autor() {
     }
@@ -41,6 +48,14 @@ public class Autor implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
     }
     
 }

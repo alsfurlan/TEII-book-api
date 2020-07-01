@@ -6,12 +6,18 @@
 package br.com.bookapi.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -54,6 +60,14 @@ public class Livro implements Serializable {
     @Column(name = "data_lancamento")
     @Temporal(TemporalType.DATE)    
     private Date lancamento;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "livro_autor", schema = "public",
+            joinColumns = { @JoinColumn(name = "livro_id")},
+            inverseJoinColumns = { @JoinColumn(name = "autor_id")} 
+    )
+    private List<Autor> autores = new ArrayList<>();
 
     public Livro() {
     }
@@ -121,5 +135,13 @@ public class Livro implements Serializable {
     public void setLancamento(Date lancamento) {
         this.lancamento = lancamento;
     }
-    
+
+    public List<Autor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(List<Autor> autores) {
+        this.autores = autores;
+    }
+        
 }
