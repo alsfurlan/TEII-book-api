@@ -53,7 +53,7 @@ public class Livro implements Serializable {
     private Float preco;
     
     @Column(name = "imagem_url", nullable = false)
-    private String imagemUrl;
+    private String imagem;
     
     private String editora;
     
@@ -112,12 +112,12 @@ public class Livro implements Serializable {
         this.preco = preco;
     }
 
-    public String getImagemUrl() {
-        return imagemUrl;
+    public String getImagem() {
+        return imagem;
     }
 
-    public void setImagemUrl(String imagemUrl) {
-        this.imagemUrl = imagemUrl;
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
     public String getEditora() {
